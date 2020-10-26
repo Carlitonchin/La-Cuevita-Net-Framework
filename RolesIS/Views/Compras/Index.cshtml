@@ -1,0 +1,30 @@
+﻿@model IEnumerable<RolesIS.Models.Compra>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@ViewBag.usuario</h2>
+<h4>Sus Compras:</h4>
+
+<table class="table">
+
+    <tr>
+        <th>Producto</th>
+        <th>Proveedor</th>
+        <th>Cantidad</th>
+        <th>Importe</th>
+        <th>Cuenta</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Producto.Nombre</td>
+            <td>@item.Producto.Anunciante.UserName</td>
+            <td>@item.Cantidad</td>
+            <td>@item.Importe</td>
+            <td>@item.Cuenta</td>
+        </tr>
+    }
+    
+</table>
+

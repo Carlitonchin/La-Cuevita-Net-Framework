@@ -1,0 +1,61 @@
+﻿@model RolesIS.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Agregar", "Create")
+</p>
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayName("Nombre")
+            
+        </th>
+        <th>
+            @Html.DisplayName("Decripcion")
+        </th>
+        <th>
+            @Html.DisplayName("Cantidad")
+        </th>
+        <th>
+            @Html.DisplayName("Precio")
+        </th>
+        <th>
+            @Html.DisplayName("Cuenta")
+        </th>
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Productos) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cantidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Precio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cuenta)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProductoID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProductoID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProductoID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,84 @@
+﻿@model RolesIS.Models.ParaRoles
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<form method="post">
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Usuarios)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Administrador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vendedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comprador)
+            </th>
+
+            <th></th>
+        </tr>
+
+
+        @{ int i = -1;}
+        @foreach (var k in Model.Usuarios)
+        {
+            i++;
+
+            <tr>
+                <td>
+                    @k.UserName
+                    <input name="Ids[@i]" value="@k.Id" hidden="hidden"/>
+                </td>
+                <td>
+                    <div class="form-group">
+
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(Model => Model.Administrador[i], Model.Administrador[i])
+
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(Model => Model.Vendedor[i], Model.Vendedor[i])
+
+                        </div>
+                    </div>
+
+                </td>
+                <td>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(Model => Model.Comprador[i], Model.Comprador[i])
+
+                        </div>
+                    </div>
+                </td>
+
+
+            </tr>
+        }
+
+
+    </table>
+
+    <div class="col-md-8">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Actualizar" class="btn btn-default" />
+        </div>
+    </div>
+</form>
+

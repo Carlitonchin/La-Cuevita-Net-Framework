@@ -1,0 +1,15 @@
+﻿@model RolesIS.Models.Producto
+@{
+    ViewBag.Title = "Comprar";
+}
+
+<h2>@Model.Nombre</h2>
+<h4>Cantidad</h4>
+<form method="post">
+    <input type="hidden" name="idProducto" value="@Model.ProductoID" />
+    <input type="number" value="1" name="cant" max="@Model.Cantidad" min="1" />
+    <br />
+    <br />
+    <input type="submit" value="Comprar" class="btn btn-default" />
+</form>
+

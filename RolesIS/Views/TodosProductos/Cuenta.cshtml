@@ -1,0 +1,23 @@
+﻿@model RolesIS.Models.Producto
+@{
+    ViewBag.Title = "Cuenta";
+}
+
+<h2>@Model.Nombre</h2>
+<h4>Cantidad: @ViewBag.Cantidad</h4>
+@{decimal imp = ViewBag.Cantidad * Model.Precio; }
+<h4>Importe: @imp</h4>
+<br />
+<br />
+<h4>Inserte Cuenta Bancaria</h4>
+<form method="post" action="@Url.Action("ConfirmarCompra")">
+    <input type="hidden" name="idProducto" value="@Model.ProductoID" />
+    <input type="hidden" name="cantidad" value="@ViewBag.Cantidad" />
+    <input type="hidden" name="importe" value="@imp"/>
+    <input type="text" name="cuenta" />
+
+    <br />
+    <br />
+    <input type="submit" value="Listo" class="btn btn-default" />
+</form>
+
