@@ -8,6 +8,8 @@ namespace RolesIS
     {
         public void Configuration(IAppBuilder app)
         {
+            Services.Cache.Cache.Initialize();
+
             ConfigureAuth(app);
         }
     }
