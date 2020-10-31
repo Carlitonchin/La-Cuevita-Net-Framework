@@ -64,8 +64,8 @@ namespace RolesIS.Controllers
 
         [Authorize]
         [HttpPost]
-     public ActionResult ConfirmarCompra(int? idProducto, int? cantidad, string cuenta, decimal? importe)
-     {
+         public ActionResult ConfirmarCompra(int? idProducto, int? cantidad, string cuenta, decimal? importe)
+         {
             if (idProducto == null || cantidad == null || cuenta == null || importe == null)
                 return Content("Error");
 
@@ -87,12 +87,11 @@ namespace RolesIS.Controllers
             
             new ComprasController().Create(compra);
 
-           
-                p.Cantidad -= (int)cantidad;
-                db.Entry(p).State = EntityState.Modified;
-                db.SaveChanges();
+            p.Cantidad -= (int)cantidad;
+            db.Entry(p).State = EntityState.Modified;
+            db.SaveChanges();
            
             return RedirectToAction("Index", "Compras");
-        }
+         }
     }
 }
