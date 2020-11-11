@@ -47,6 +47,7 @@ namespace RolesIS.Controllers
         {
             if (ModelState.IsValid)
             {
+                compra.Estado = ShopStatus.InCart;
                 Cache.AddOrRemoveCompra(true, compra);
 
                 return RedirectToAction("Index", "Compras");

@@ -1,12 +1,13 @@
 ﻿using RolesIS.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
 namespace RolesIS.Services.Cache
 {
-    public static class Cache //: ICache
+    public static class Cache
     {
         private static ApplicationDbContext _dbContext;
 
@@ -90,6 +91,19 @@ namespace RolesIS.Services.Cache
         public static void UpdateProductos()
         {
             Productos = _dbContext.Productoes.ToList();
+        }
+
+        public static void FromCartToPaid(List<Compra> compras)
+        {
+            foreach (var compra in compras)
+            {
+                var paidCompra = Compras.Where(c => c.CompraID == compra.CompraID).Single();
+                paidCompra.Estado = ShopStatus.Paid;
+                _dbContext.Entry(paidCompra).State = EntityState.Modified;
+            }
+            _dbContext.SaveChanges();
+
+            UpdateCompras();
         }
         #endregion
     }

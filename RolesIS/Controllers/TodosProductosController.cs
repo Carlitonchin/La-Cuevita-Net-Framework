@@ -82,21 +82,6 @@ namespace RolesIS.Controllers
 
             var idComprador = Cache.GetUser(u => u.UserName == User.Identity.Name).Id;
             ClientManager.CreateCompra((int)idProducto, (int)cantidad, cuenta, (decimal)importe, idComprador);
-
-
-            /*Compra compra = new Compra();
-            compra.Cantidad = (int)cantidad;
-            compra.Id = db.Users.First(u => u.UserName == User.Identity.Name).Id;
-            compra.ProductoID = (int)idProducto;
-            compra.Cuenta = cuenta;
-            compra.Importe = (decimal)importe;
-            ProductosController pController = new ProductosController();
-            
-            new ComprasController().Create(compra);
-
-            producto.Cantidad -= (int)cantidad;
-            db.Entry(producto).State = EntityState.Modified;
-            db.SaveChanges();*/
            
             return RedirectToAction("Index", "Compras");
          }
