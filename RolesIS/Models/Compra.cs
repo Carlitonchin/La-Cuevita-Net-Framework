@@ -15,6 +15,8 @@ namespace RolesIS.Models
 
         public string Cuenta { get; set; }
 
+        public ShopStatus Estado { get; set; }
+
         public decimal Importe { get; set; }
         public int ProductoID { get; set; }
         public virtual Producto Producto { get; set; }
@@ -22,6 +24,10 @@ namespace RolesIS.Models
         public string Id { get; set; }
 
         public virtual ApplicationUser Comprador { get; set; }
-        
+    }
+
+    public enum ShopStatus
+    { 
+        InCart, Paid
     }
 }

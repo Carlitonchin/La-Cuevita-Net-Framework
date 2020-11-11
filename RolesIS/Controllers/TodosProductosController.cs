@@ -1,4 +1,6 @@
 ﻿using RolesIS.Models;
+using RolesIS.Services.Cache;
+using RolesIS.Services.ClientManager;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -15,17 +17,18 @@ namespace RolesIS.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            return View(db.Productoes.ToList());
+            return View(Cache.Productos);
         }
 
         public ActionResult Details(int? id)
         {
             if (id == null)
                 return Content("Error");
-            Producto p = db.Productoes.Find(id);
-            if (p == null)
+            var producto = Cache.GetProducto(p => p.ProductoID == id);
+            if (producto == null)
                 return Content("Producto no existente, habla con el proveedor");
-            return View(p);
+
+            return View(producto);
         }
 
         [Authorize]
@@ -34,12 +37,12 @@ namespace RolesIS.Controllers
             if (idProducto == null)
                 return Content("requiere producto");
 
-            Producto p = db.Productoes.Find(idProducto);
+            var producto = Cache.GetProducto(p => p. ProductoID == idProducto);
 
-            if (p == null)
+            if (producto == null)
                 return Content("Producto inexistente");
 
-            return View(p);
+            return View(producto);
         }
 
         [Authorize]
@@ -49,17 +52,17 @@ namespace RolesIS.Controllers
             if (idProducto == null || cant == null)
                 return Content("Error");
 
-            Producto p = db.Productoes.Find(idProducto);
+            var producto = Cache.GetProducto(p => p. ProductoID == idProducto);
 
-            if (p == null)
+            if (producto == null)
                 return Content("Producto inexistente");
 
-            if (cant > p.Cantidad)
-                return Content("No se dispone de esa cantidad de " + p.Nombre);
+            if (cant > producto.Cantidad)
+                return Content("No se dispone de esa cantidad de " + producto.Nombre);
 
             ViewBag.Cantidad = cant;
 
-            return View("Cuenta", p);
+            return View("Cuenta", producto);
         }
 
         [Authorize]
@@ -69,15 +72,19 @@ namespace RolesIS.Controllers
             if (idProducto == null || cantidad == null || cuenta == null || importe == null)
                 return Content("Error");
 
-            Producto p = db.Productoes.Find(idProducto);
+            var producto = Cache.GetProducto(p => p.ProductoID == idProducto);
 
-            if (p == null)
+            if (producto == null)
                 return Content("Producto inexistente");
 
-            if (cantidad > p.Cantidad)
-                return Content("No se dispone de esa cantidad de " + p.Nombre);
+            if (cantidad > producto.Cantidad)
+                return Content("No se dispone de esa cantidad de " + producto.Nombre);
 
-            Compra compra = new Compra();
+            var idComprador = Cache.GetUser(u => u.UserName == User.Identity.Name).Id;
+            ClientManager.CreateCompra((int)idProducto, (int)cantidad, cuenta, (decimal)importe, idComprador);
+
+
+            /*Compra compra = new Compra();
             compra.Cantidad = (int)cantidad;
             compra.Id = db.Users.First(u => u.UserName == User.Identity.Name).Id;
             compra.ProductoID = (int)idProducto;
@@ -87,9 +94,9 @@ namespace RolesIS.Controllers
             
             new ComprasController().Create(compra);
 
-            p.Cantidad -= (int)cantidad;
-            db.Entry(p).State = EntityState.Modified;
-            db.SaveChanges();
+            producto.Cantidad -= (int)cantidad;
+            db.Entry(producto).State = EntityState.Modified;
+            db.SaveChanges();*/
            
             return RedirectToAction("Index", "Compras");
          }

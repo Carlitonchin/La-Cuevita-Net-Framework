@@ -20,9 +20,9 @@ namespace RolesIS.Services.Cache
         }
 
         #region Models
-        private static List<ApplicationUser> Users { get; set; }
-        private static List<Compra> Compras { get; set; }
-        private static List<Producto> Productos { get; set; }
+        public static List<ApplicationUser> Users { get; private set; }
+        public static List<Compra> Compras { get; private set; }
+        public static List<Producto> Productos { get; private set; }
         #endregion
 
         #region Methods
