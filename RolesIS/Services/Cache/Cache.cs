@@ -88,6 +88,19 @@ namespace RolesIS.Services.Cache
             UpdateProductos();
         }
 
+        public static void DecreaseProducto(int productoId, int amount)
+        {
+            var producto = GetProducto(p => p.ProductoID == productoId);
+            if (producto.Cantidad < amount)
+                throw new Exception("No existe esa cantidad de ese producto");
+            producto.Cantidad -= amount;
+
+            _dbContext.Entry(producto).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+
+            UpdateProductos();
+        }
+
         public static void UpdateProductos()
         {
             Productos = _dbContext.Productoes.ToList();

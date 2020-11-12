@@ -6,7 +6,7 @@ using System.Web;
 
 namespace RolesIS.Services.ClientManager
 {
-    public static class ClientManager //: IClientManager
+    public static class ClientManager
     {
         public static void CreateCompra(int idProducto, int cantidad, string cuenta, decimal importe, string idComprador)
         {
@@ -20,7 +20,7 @@ namespace RolesIS.Services.ClientManager
             };
 
             Cache.Cache.AddOrRemoveCompra(true, compra);
-            //Sustraer cant producto
+            Cache.Cache.DecreaseProducto(idProducto, cantidad);
         }
     }
 }

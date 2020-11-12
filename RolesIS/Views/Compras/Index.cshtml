@@ -10,6 +10,7 @@
 
     <tr>
         <th>Producto</th>
+        <th>Estado</th>
         <th>Proveedor</th>
         <th>Cantidad</th>
         <th>Importe</th>
@@ -17,8 +18,10 @@
     </tr>
     @foreach (var item in Model)
     {
+        var estado = item.Estado == RolesIS.Models.ShopStatus.InCart ? "En carrito" : "Pagado";
         <tr>
             <td>@item.Producto.Nombre</td>
+            <td>@estado</td>
             <td>@item.Producto.Anunciante.UserName</td>
             <td>@item.Cantidad</td>
             <td>@item.Importe</td>

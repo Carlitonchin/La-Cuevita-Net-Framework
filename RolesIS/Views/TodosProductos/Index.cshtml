@@ -36,7 +36,7 @@
 
                 <tr>
                     <td>
-                        @Html.ActionLink(item.Nombre, "Details", new { id = item.ProductoID })
+                        @Html.ActionLink(item.Nombre, "Comprar", new { ProductoId = item.ProductoID })
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Anunciante.UserName)

@@ -20,27 +20,13 @@ namespace RolesIS.Controllers
             return View(Cache.Productos);
         }
 
-        public ActionResult Details(int? id)
+        public ActionResult Comprar(int? ProductoId)
         {
-            if (id == null)
+            if (ProductoId == null)
                 return Content("Error");
-            var producto = Cache.GetProducto(p => p.ProductoID == id);
+            var producto = Cache.GetProducto(p => p.ProductoID == ProductoId);
             if (producto == null)
                 return Content("Producto no existente, habla con el proveedor");
-
-            return View(producto);
-        }
-
-        [Authorize]
-        public ActionResult Comprar(int? idProducto)
-        {
-            if (idProducto == null)
-                return Content("requiere producto");
-
-            var producto = Cache.GetProducto(p => p. ProductoID == idProducto);
-
-            if (producto == null)
-                return Content("Producto inexistente");
 
             return View(producto);
         }

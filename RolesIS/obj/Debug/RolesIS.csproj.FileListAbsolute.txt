@@ -151,3 +151,4 @@ C:\Users\Casa\source\repos\La-Cuevita-Net-Framework\RolesIS\obj\Debug\RolesIS.cs
 C:\Users\Casa\source\repos\La-Cuevita-Net-Framework\RolesIS\obj\Debug\RolesIS.csproj.CopyComplete
 C:\Users\Casa\source\repos\La-Cuevita-Net-Framework\RolesIS\obj\Debug\RolesIS.dll
 C:\Users\Casa\source\repos\La-Cuevita-Net-Framework\RolesIS\obj\Debug\RolesIS.pdb
+C:\Users\Casa\source\repos\La-Cuevita-Net-Framework\RolesIS\obj\Debug\RolesIS.Migrations.CompraUpdated.resources

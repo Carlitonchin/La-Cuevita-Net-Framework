@@ -7,7 +7,7 @@
 <h2>Carrito de compra</h2>
 @{decimal importeTotal = 0;}
 
-<table>
+<table class="table">
     <tr>
         <th>
             Producto
@@ -20,6 +20,8 @@
         </th>
         <th>
             Importe
+        </th>
+        <th>
         </th>
     </tr>
 
@@ -38,12 +40,15 @@
             <td>
                 @(compra.Producto.Precio * compra.Cantidad)
             </td>
+            <td>
+                @Html.ActionLink("Eliminar", "Delete", new { compraId = compra.CompraID }, null)
+            </td>
         </tr>
         importeTotal += compra.Producto.Precio * compra.Cantidad;
     }
 
 </table>
 
-<h2>Total: @importeTotal</h2>
+<h3>Total: @importeTotal</h3>
 
 @Html.ActionLink("Comprar", "Buy")

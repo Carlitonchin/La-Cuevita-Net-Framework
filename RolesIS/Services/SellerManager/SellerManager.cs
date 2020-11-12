@@ -5,7 +5,7 @@ using System.Web;
 
 namespace RolesIS.Services.SellerManager
 {
-    public class SellerManager : ISellerManager
+    public class SellerManager
     {
     }
 }

@@ -26,5 +26,16 @@ namespace RolesIS.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult Delete(int? compraId)
+        {
+            if (compraId == null)
+                return Content("Compra no encontrada");
+
+            var compra = Cache.GetCompra(c => c.CompraID == compraId);
+            Cache.AddOrRemoveCompra(false, compra);
+
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -1,9 +1,62 @@
 ﻿@model RolesIS.Models.Producto
+
 @{
-    ViewBag.Title = "Comprar";
+    ViewBag.Title = "Comprar Producto";
 }
 
-<h2>@Model.Nombre</h2>
+<h2>Comprar producto @Model.Nombre</h2>
+
+<div>
+    <h4>Descripcion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Proveedor")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Anunciante.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio)
+        </dd>
+    </dl>
+
+    <br />
+    <br />
+</div>
+
+<ht />
+
 <h4>Cantidad</h4>
 <form method="post">
     <input type="hidden" name="idProducto" value="@Model.ProductoID" />
@@ -12,4 +65,9 @@
     <br />
     <input type="submit" value="Añadir a carrito" class="btn btn-default" />
 </form>
+
+<p>
+
+    @Html.ActionLink("Back to List", "Index")
+</p>
 
