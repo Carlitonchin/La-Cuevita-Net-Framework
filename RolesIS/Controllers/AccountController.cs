@@ -36,7 +36,6 @@ namespace RolesIS.Controllers
             int i = 0;
             foreach (var user in users.Usuarios)
             {
-               
                 bool IsAdmin = await UserManager.IsInRoleAsync(user.Id, "Admin");
                 bool IsComp = await UserManager.IsInRoleAsync(user.Id, "Comprador");
                 bool IsVend = await UserManager.IsInRoleAsync(user.Id, "Vendedor");

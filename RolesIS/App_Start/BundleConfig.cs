@@ -24,7 +24,7 @@ namespace RolesIS
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-shopping.css",
                       "~/Content/site.css"));
         }
     }
