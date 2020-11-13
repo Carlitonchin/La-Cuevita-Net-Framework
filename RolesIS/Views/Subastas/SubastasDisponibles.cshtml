@@ -1,0 +1,48 @@
+﻿@model IEnumerable<RolesIS.Models.Subasta>
+@{
+    ViewBag.Title = "SubastasDisponibles";
+}
+
+<h2>Subastas Disponibles</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Subasta
+        </th>
+        <th>
+            Descripcion
+        </th>
+        <th>
+            Estado
+        </th>
+    </tr>
+
+   @foreach (var item in Model)
+   {
+       <tr>
+           <td>
+              @Html.ActionLink(@item.Nombre, "CuentaBancariaParaSubasta", new { idSubasta = item.SubastaID}) 
+           </td>
+           <td>
+               @item.Descripcion
+           </td>
+           <td>
+               @{ 
+
+                   int tr = (int) (item.TiempoRestanteParaComenzar - DateTime.Now.Subtract((DateTime)item.tiempoPublicacion).TotalSeconds);
+
+               }
+               @if (tr >= 0)
+               {
+                   <p>A @tr segundos para comenzar</p>
+               }
+               else
+               {
+                   <p>Ya comenzo</p>
+               }
+           </td>
+       </tr>
+   }
+</table>
+

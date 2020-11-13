@@ -1,0 +1,67 @@
+﻿@model RolesIS.Models.Subasta
+
+
+    <h2>Subasta @Model.Nombre</h2>
+    <h4>@Model.Descripcion</h4>
+    <br />
+    <h4>Productos:</h4>
+    @{
+        var productos = Model.Productos.ToList();
+        var cantidades = Model.Cantidades.ToList();
+    }
+
+    @for (int i = 0; i < productos.Count; i++)
+    {
+        <p>@cantidades[i].valor x @productos[i].Nombre</p>
+    }
+
+    <br />
+@{ 
+    double tiempoParaComenzar = Model.TiempoRestanteParaComenzar - DateTime.Now.Subtract((DateTime)Model.tiempoPublicacion).TotalSeconds;
+}
+
+@{ 
+    bool form = false;
+}
+@if (tiempoParaComenzar >= 0)
+{
+    tiempoParaComenzar = (int)tiempoParaComenzar;
+    <h4>Faltan @tiempoParaComenzar segundos para comenzar la subasta (presiona f5 para actualizar la pagina para)</h4>
+}
+   else if (Model.CompradorActual == null)
+   {
+        <h4>Puja por un precio mayor o igual a: @Model.PrecioInicial</h4>
+        <br />
+        <h4>Se disparara un temporizador de 15 segundos luego de cada puja, refresca la pagina constantemente para enterarte</h4>
+    form = true;
+}
+else
+{
+
+
+    double time = (15 - DateTime.Now.Subtract((DateTime)Model.tiempoUltimaPuja).TotalSeconds);
+
+    if (time >= 0)
+    {
+        <h4>Puja por un precio superior a: @Model.PrecioActual</h4>
+        <br />
+        <h4>Tiempo Restante: @time (Refresque la pagina con f5)</h4>
+        form = true;
+    }
+    else
+    {
+        <h4>Subasta vendida por @Model.PrecioActual</h4>
+    }
+    
+}
+<br />
+@if (form)
+{
+    <form method="post">
+        <input type="hidden" name="idSubasta" value="@Model.SubastaID">
+        <input type="hidden" name="idSubasta" value="@ViewBag.cuenta">
+        <input type="number" class="form-control" name="monto" />
+        <br />
+        <input type="submit" class="btn btn-default" value="Pujar" />
+    </form>
+}

@@ -1,0 +1,29 @@
+﻿@model RolesIS.Models.SubastaViewModel
+@{
+    ViewBag.Title = "Create3";
+}
+
+<h2>Cual sera el precio inicial:</h2>
+<form method="post" action="@Url.Action("CreateFinish")">
+    <input name="PrecioInicial" class="form-control" type="number" placeholder="Valor del Paquete = @ViewBag.valor" />
+    <br />
+    <input name="cuenta" placeholder="Ingrese su Cuenta Bancaria" class="form-control"/>
+    <input type="hidden" name="nombre" value="@Model.subasta.Nombre" />
+    <input type="hidden" name="descripcion" value="@Model.subasta.Descripcion" />
+    @{
+        var Productos = Model.productosSeleccionados;
+        var Cantidades = Model.cantidades;
+    }
+     
+   @for (int i = 0; i < Model.productosSeleccionados.Count; i++)
+   {
+    <input type="hidden" name="index" value="@i">
+    <input type="hidden" name="productosSeleccionados[@i]" value="@Productos[i].ProductoID">
+
+    <input type="hidden" name="cantidades[@i]" value="@Cantidades[i]">
+   }
+
+    <input class="btn btn-default" type="submit" value="OK"/>
+</form>
+
+

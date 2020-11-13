@@ -94,5 +94,17 @@ namespace RolesIS.Controllers
            
             return RedirectToAction("Index", "Compras");
         }
+
+        public ActionResult Carrito(Producto p, List<int> idProductos)
+        {
+            if(p != null)
+            {
+                if (idProductos == null)
+                    idProductos = new List<int>();
+
+            }
+            ViewData["asd"] = "asddas";
+            return View();
+        }
     }
 }

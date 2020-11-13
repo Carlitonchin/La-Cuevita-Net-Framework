@@ -14,6 +14,9 @@ namespace RolesIS.Models
         public virtual ICollection<Producto> Productos { get; set; }
 
         public virtual ICollection<Compra> Compras { get; set; }
+
+        public virtual ICollection<Subasta> SubastasPublicadas { get; set; }
+        public virtual ICollection<Subasta> SubastasAdquiridas { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Tenga en cuenta que el valor de authenticationType debe coincidir con el definido en CookieAuthenticationOptions.AuthenticationType
@@ -38,6 +41,7 @@ namespace RolesIS.Models
         public System.Data.Entity.DbSet<RolesIS.Models.Producto> Productoes { get; set; }
 
         public System.Data.Entity.DbSet<RolesIS.Models.Compra> Compras { get; set; }
-        
+
+        public System.Data.Entity.DbSet<RolesIS.Models.Subasta> Subastas { get; set; }
     }
 }

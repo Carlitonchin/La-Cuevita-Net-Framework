@@ -172,6 +172,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
+    <Compile Include="Controllers\SubastasController.cs" />
     <Compile Include="Controllers\TodosProductosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -200,13 +201,44 @@
     <Compile Include="Migrations\201204012244521_ComprasImporte.Designer.cs">
       <DependentUpon>201204012244521_ComprasImporte.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011121317383_Subastas.cs" />
+    <Compile Include="Migrations\202011121317383_Subastas.Designer.cs">
+      <DependentUpon>202011121317383_Subastas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011121346008_SubastasUpgrade.cs" />
+    <Compile Include="Migrations\202011121346008_SubastasUpgrade.Designer.cs">
+      <DependentUpon>202011121346008_SubastasUpgrade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011121742201_SubastasDateTimeNulleables.cs" />
+    <Compile Include="Migrations\202011121742201_SubastasDateTimeNulleables.Designer.cs">
+      <DependentUpon>202011121742201_SubastasDateTimeNulleables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011121817007_virtualCantidadesSubastas.cs" />
+    <Compile Include="Migrations\202011121817007_virtualCantidadesSubastas.Designer.cs">
+      <DependentUpon>202011121817007_virtualCantidadesSubastas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011121823187_ListCantidadesSubasta.cs" />
+    <Compile Include="Migrations\202011121823187_ListCantidadesSubasta.Designer.cs">
+      <DependentUpon>202011121823187_ListCantidadesSubasta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011121828032_CantidadesComoEntidad.cs" />
+    <Compile Include="Migrations\202011121828032_CantidadesComoEntidad.Designer.cs">
+      <DependentUpon>202011121828032_CantidadesComoEntidad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011122110474_PublicarSubastas.cs" />
+    <Compile Include="Migrations\202011122110474_PublicarSubastas.Designer.cs">
+      <DependentUpon>202011122110474_PublicarSubastas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Cantidades.cs" />
     <Compile Include="Models\Compra.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ParaRoles.cs" />
     <Compile Include="Models\Producto.cs" />
+    <Compile Include="Models\Subasta.cs" />
+    <Compile Include="Models\SubastaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -276,6 +308,18 @@
     <Content Include="Views\TodosProductos\Comprar.cshtml" />
     <Content Include="Views\TodosProductos\Cuenta.cshtml" />
     <Content Include="Views\Compras\Index.cshtml" />
+    <Content Include="Views\Subastas\Create.cshtml" />
+    <Content Include="Views\Subastas\Delete.cshtml" />
+    <Content Include="Views\Subastas\Details.cshtml" />
+    <Content Include="Views\Subastas\Edit.cshtml" />
+    <Content Include="Views\Subastas\Index.cshtml" />
+    <Content Include="Views\Subastas\Create2.cshtml" />
+    <Content Include="Views\Subastas\Create3.cshtml" />
+    <Content Include="Views\Subastas\Descripcion.cshtml" />
+    <Content Include="Views\Subastas\Publicar.cshtml" />
+    <Content Include="Views\Subastas\SubastasDisponibles.cshtml" />
+    <Content Include="Views\Subastas\Pujar.cshtml" />
+    <Content Include="Views\Subastas\CuentaBancariaParaSubasta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -306,6 +350,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201204012244521_ComprasImporte.resx">
       <DependentUpon>201204012244521_ComprasImporte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011121317383_Subastas.resx">
+      <DependentUpon>202011121317383_Subastas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011121346008_SubastasUpgrade.resx">
+      <DependentUpon>202011121346008_SubastasUpgrade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011121742201_SubastasDateTimeNulleables.resx">
+      <DependentUpon>202011121742201_SubastasDateTimeNulleables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011121817007_virtualCantidadesSubastas.resx">
+      <DependentUpon>202011121817007_virtualCantidadesSubastas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011121823187_ListCantidadesSubasta.resx">
+      <DependentUpon>202011121823187_ListCantidadesSubasta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011121828032_CantidadesComoEntidad.resx">
+      <DependentUpon>202011121828032_CantidadesComoEntidad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011122110474_PublicarSubastas.resx">
+      <DependentUpon>202011122110474_PublicarSubastas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -24,5 +24,6 @@ namespace RolesIS.Models
         public string Cuenta { get; set; }
         
         public virtual ICollection<Compra> Compras { get; set; }
+        public virtual ICollection<Subasta> Subastas { get; set; }
     }
 }

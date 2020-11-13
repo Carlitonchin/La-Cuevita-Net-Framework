@@ -1,0 +1,41 @@
+﻿@model IEnumerable<RolesIS.Models.Subasta>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Subastas (presione sobre el nombre para mas detalles)</h2>
+
+<a href="@Url.Action("Create")" class="btn btn-group">Crear una Subasta</a>
+<table class="table">
+
+    <tr>
+        <th>Nombre</th>
+        <th>Precio Final</th>
+        <th>Estado</th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@Html.ActionLink(item.Nombre, "Descripcion", new { idSubasta = item.SubastaID})</td>
+    
+        <td>@item.PrecioInicial</td>
+
+        @if(item.tiempoPublicacion == null)
+        {
+            <td>Lista para publicar</td>
+            <td>@Html.ActionLink("Eliminar", "Eliminar", new { idSubasta = item.SubastaID})</td>
+        }
+        else if (item.SubastaTerminada)
+        {
+            <td>Subasta terminada</td>
+        }
+        else
+        {
+            <td>Publicada (aun sin comprador)</td>
+        }
+
+    </tr>
+}
+</table>
