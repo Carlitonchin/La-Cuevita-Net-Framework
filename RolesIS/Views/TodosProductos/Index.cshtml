@@ -45,23 +45,28 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        if (item.Cantidad == 0)
-        {
-            continue;
-        }
+            @foreach (var item in Model)
+            {
+                if (item.Cantidad == 0)
+                {
+                    continue;
+                }
+                
 
-        <tr>
-            <td>
-                @Html.ActionLink(item.Nombre, "Comprar", new { ProductoId = item.ProductoID })
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Anunciante.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Precio)
-            </td>
-        </tr>
-    }
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Nombre, "Comprar", new { ProductoId = item.ProductoID })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Anunciante.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Reportar", "Reportar", new { idProducto = item.ProductoID })
+                    </td>
+                </tr>
+            }
+   
 </table>

@@ -26,6 +26,7 @@
                     @if (User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("Usuarios", "Index", "Account")</li>
+                        <li>@Html.ActionLink("Productos Reportados", "IndexReportados", "TodosProductos")</li>
                     }
                     @if (User.IsInRole("Vendedor"))
                     {

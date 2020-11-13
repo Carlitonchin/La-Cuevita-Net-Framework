@@ -58,7 +58,7 @@
 <ht />
 
 <h4>Cantidad</h4>
-<form method="post">
+<form method="post" action="@Url.Action("AnadirACarrito")">
     <input type="hidden" name="idProducto" value="@Model.ProductoID" />
     <input type="number" value="1" name="cant" max="@Model.Cantidad" min="1" />
     <br />

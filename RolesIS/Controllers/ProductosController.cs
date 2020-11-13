@@ -52,6 +52,7 @@ namespace RolesIS.Controllers
         {
             var user = Cache.GetUser(u => u.UserName == User.Identity.Name);
             producto.Id = user.Id;
+            producto.Estado = ProductState.OnSale;
             if (ModelState.IsValid)
             {
                 Cache.AddOrRemoveProducto(true, producto);

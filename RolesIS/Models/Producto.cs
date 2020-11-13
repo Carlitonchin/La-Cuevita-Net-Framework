@@ -25,5 +25,13 @@ namespace RolesIS.Models
         
         public virtual ICollection<Compra> Compras { get; set; }
         public virtual ICollection<Subasta> Subastas { get; set; }
+
+        public ProductState Estado { get; set; }
+
+        public string UsuarioQueReporta { get; set; }
+    }
+    public enum ProductState
+    {
+        OnSale, Suspended
     }
 }

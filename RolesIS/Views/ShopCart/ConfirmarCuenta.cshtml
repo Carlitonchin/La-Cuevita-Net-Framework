@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "ConfirmarCuenta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ConfirmarCuenta</h2>
+
+<h2>Usted está a punto de realizar una transferencia</h2>
+<h4>Importe: @ViewBag.Price</h4>
+<br />
+<br />
+<h4>Inserte su Cuenta Bancaria</h4>
+<form method="post" action="@Url.Action("Buy")">
+    <input type="text" name="cuenta" />
+    <br />
+    <br />
+    <input type="submit" value="Listo" class="btn btn-default" />
+</form>

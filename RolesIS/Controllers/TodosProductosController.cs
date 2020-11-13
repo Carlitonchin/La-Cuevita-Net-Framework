@@ -17,7 +17,16 @@ namespace RolesIS.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            return View(Cache.Productos);
+            var productos = db.Productoes.Where(p => p.Estado == ProductState.OnSale).ToList();
+            return View(productos);
+        }
+
+        public ActionResult IndexReportados()
+        {
+            if (!User.IsInRole("Admin"))
+                return Content("No tienes permiso para entrar aqui");
+            var productos = db.Productoes.Where(p => p.Estado == ProductState.Suspended).ToList();
+            return View(productos);
         }
 
         public ActionResult Filter(string text, int? minPrice, int? maxPrice, int? amount)
@@ -40,7 +49,7 @@ namespace RolesIS.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult Comprar(int? idProducto, int? cant)
+        public ActionResult AnadirACarrito (int? idProducto, int? cant)
         {
             if (idProducto == null || cant == null)
                 return Content("Error");
@@ -53,9 +62,11 @@ namespace RolesIS.Controllers
             if (cant > producto.Cantidad)
                 return Content("No se dispone de esa cantidad de " + producto.Nombre);
 
-            ViewBag.Cantidad = cant;
 
-            return View("Cuenta", producto);
+            var user = Cache.GetUser(u => u.UserName == User.Identity.Name);
+            ClientManager.CreateCompra(idProducto.Value, cant.Value, "", producto.Precio * cant.Value, user.Id);
+
+            return RedirectToAction("Index");
         }
 
         [Authorize]
@@ -78,5 +89,40 @@ namespace RolesIS.Controllers
            
             return RedirectToAction("Index", "Compras");
          }
+
+        public ActionResult Reportar(int? idProducto)
+        {
+            if (idProducto == null)
+                return Content("Producto no encontrado");
+
+            var producto = db.Productoes.SingleOrDefault(p => p.ProductoID == idProducto.Value);
+            if (producto == null)
+                return Content("Producto no encontrado");
+
+            producto.Estado = ProductState.Suspended;
+            producto.UsuarioQueReporta = User.Identity.Name;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Autorizar(int? idProducto)
+        {
+            if (!User.IsInRole("Admin"))
+                return Content("No tienes permiso para entrar aqui");
+
+            if (idProducto == null)
+                return Content("Producto no encontrado");
+
+            var producto = db.Productoes.SingleOrDefault(p => p.ProductoID == idProducto.Value);
+            if (producto == null)
+                return Content("Producto no encontrado");
+
+            producto.Estado = ProductState.OnSale;
+            producto.UsuarioQueReporta = "";
+            db.SaveChanges();
+
+            return RedirectToAction("IndexReportados");
+        }
     }
 }
