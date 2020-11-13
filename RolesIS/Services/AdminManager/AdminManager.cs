@@ -5,7 +5,7 @@ using System.Web;
 
 namespace RolesIS.Services.AdminManager
 {
-    public class AdminManager : IAdminManager
+    public class AdminManager
     {
 
     }

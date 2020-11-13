@@ -22,5 +22,23 @@ namespace RolesIS.Services.ClientManager
             Cache.Cache.AddOrRemoveCompra(true, compra);
             Cache.Cache.DecreaseProducto(idProducto, cantidad);
         }
+
+        public static List<Producto> FilterProductos(string text, int? minPrice, int? maxPrice, int? amount)
+        {
+            var filteredProductos = new List<Producto>();
+
+            foreach (var producto in Cache.Cache.Productos)
+                if (producto.Nombre.ToUpper().Contains(text.ToUpper()))
+                    filteredProductos.Add(producto);
+
+            if (minPrice != null)
+                filteredProductos.RemoveAll(p => p.Precio < minPrice);
+            if(maxPrice != null)
+                filteredProductos.RemoveAll(p => p.Precio > maxPrice);
+            if (amount != null)
+                filteredProductos.RemoveAll(p => p.Cantidad < amount);
+
+            return filteredProductos;
+        }
     }
 }
