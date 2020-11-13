@@ -24,7 +24,7 @@ namespace RolesIS.Controllers
         public async Task<ActionResult> Index()
         {
             if (!User.IsInRole("Admin"))
-                return Content("No tienes los permisos para entrar aki");
+                return Content("Acceso Denegado");
 
             ParaRoles users = new ParaRoles();
             users.Usuarios = db.Users;
@@ -36,7 +36,6 @@ namespace RolesIS.Controllers
             int i = 0;
             foreach (var user in users.Usuarios)
             {
-               
                 bool IsAdmin = await UserManager.IsInRoleAsync(user.Id, "Admin");
                 bool IsComp = await UserManager.IsInRoleAsync(user.Id, "Comprador");
                 bool IsVend = await UserManager.IsInRoleAsync(user.Id, "Vendedor");
@@ -213,7 +212,7 @@ namespace RolesIS.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
