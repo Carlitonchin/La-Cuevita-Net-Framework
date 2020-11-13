@@ -20,6 +20,13 @@ namespace RolesIS.Controllers
             return View(Cache.Productos);
         }
 
+        public ActionResult Filter(string text, int? minPrice, int? maxPrice, int? amount)
+        {
+            var productos = ClientManager.FilterProductos(text, minPrice, maxPrice, amount);
+
+            return View("Index", productos);
+        }
+
         public ActionResult Comprar(int? ProductoId)
         {
             if (ProductoId == null)
