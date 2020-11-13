@@ -1,4 +1,6 @@
 ﻿using RolesIS.Models;
+using RolesIS.Services.Cache;
+using RolesIS.Services.ClientManager;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -15,96 +17,112 @@ namespace RolesIS.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            return View(db.Productoes.ToList());
+            var productos = db.Productoes.Where(p => p.Estado == ProductState.OnSale).ToList();
+            return View(productos);
         }
 
-        public ActionResult Details(int? id)
+        public ActionResult IndexReportados()
         {
-            if (id == null)
+            if (!User.IsInRole("Admin"))
+                return Content("No tienes permiso para entrar aqui");
+            var productos = db.Productoes.Where(p => p.Estado == ProductState.Suspended).ToList();
+            return View(productos);
+        }
+
+        public ActionResult Filter(string text, int? minPrice, int? maxPrice, int? amount)
+        {
+            var productos = ClientManager.FilterProductos(text, minPrice, maxPrice, amount);
+
+            return View("Index", productos);
+        }
+
+        public ActionResult Comprar(int? ProductoId)
+        {
+            if (ProductoId == null)
                 return Content("Error");
-            Producto p = db.Productoes.Find(id);
-            if (p == null)
+            var producto = Cache.GetProducto(p => p.ProductoID == ProductoId);
+            if (producto == null)
                 return Content("Producto no existente, habla con el proveedor");
-            return View(p);
-        }
 
-        [Authorize]
-        public ActionResult Comprar(int? idProducto)
-        {
-            if (idProducto == null)
-                return Content("requiere producto");
-
-            Producto p = db.Productoes.Find(idProducto);
-
-            if (p == null)
-                return Content("Producto inexistente");
-
-            return View(p);
+            return View(producto);
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult Comprar(int? idProducto, int? cant)
+        public ActionResult AnadirACarrito (int? idProducto, int? cant)
         {
             if (idProducto == null || cant == null)
                 return Content("Error");
 
-            Producto p = db.Productoes.Find(idProducto);
+            var producto = Cache.GetProducto(p => p. ProductoID == idProducto);
 
-            if (p == null)
+            if (producto == null)
                 return Content("Producto inexistente");
 
-            if (cant > p.Cantidad)
-                return Content("No se dispone de esa cantidad de " + p.Nombre);
+            if (cant > producto.Cantidad)
+                return Content("No se dispone de esa cantidad de " + producto.Nombre);
 
-            ViewBag.Cantidad = cant;
 
-            return View("Cuenta", p);
+            var user = Cache.GetUser(u => u.UserName == User.Identity.Name);
+            ClientManager.CreateCompra(idProducto.Value, cant.Value, "", producto.Precio * cant.Value, user.Id);
+
+            return RedirectToAction("Index");
         }
 
         [Authorize]
         [HttpPost]
-     public ActionResult ConfirmarCompra(int? idProducto, int? cantidad, string cuenta, decimal? importe)
-     {
+         public ActionResult ConfirmarCompra(int? idProducto, int? cantidad, string cuenta, decimal? importe)
+         {
             if (idProducto == null || cantidad == null || cuenta == null || importe == null)
                 return Content("Error");
 
-            Producto p = db.Productoes.Find(idProducto);
+            var producto = Cache.GetProducto(p => p.ProductoID == idProducto);
 
-            if (p == null)
+            if (producto == null)
                 return Content("Producto inexistente");
 
-            if (cantidad > p.Cantidad)
-                return Content("No se dispone de esa cantidad de " + p.Nombre);
+            if (cantidad > producto.Cantidad)
+                return Content("No se dispone de esa cantidad de " + producto.Nombre);
 
-            Compra compra = new Compra();
-            compra.Cantidad = (int)cantidad;
-            compra.Id = db.Users.First(u => u.UserName == User.Identity.Name).Id;
-            compra.ProductoID = (int)idProducto;
-            compra.Cuenta = cuenta;
-            compra.Importe = (decimal)importe;
-            ProductosController pController = new ProductosController();
-            
-            new ComprasController().Create(compra);
-
-           
-                p.Cantidad -= (int)cantidad;
-                db.Entry(p).State = EntityState.Modified;
-                db.SaveChanges();
+            var idComprador = Cache.GetUser(u => u.UserName == User.Identity.Name).Id;
+            ClientManager.CreateCompra((int)idProducto, (int)cantidad, cuenta, (decimal)importe, idComprador);
            
             return RedirectToAction("Index", "Compras");
+         }
+
+        public ActionResult Reportar(int? idProducto)
+        {
+            if (idProducto == null)
+                return Content("Producto no encontrado");
+
+            var producto = db.Productoes.SingleOrDefault(p => p.ProductoID == idProducto.Value);
+            if (producto == null)
+                return Content("Producto no encontrado");
+
+            producto.Estado = ProductState.Suspended;
+            producto.UsuarioQueReporta = User.Identity.Name;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
-        public ActionResult Carrito(Producto p, List<int> idProductos)
+        public ActionResult Autorizar(int? idProducto)
         {
-            if(p != null)
-            {
-                if (idProductos == null)
-                    idProductos = new List<int>();
+            if (!User.IsInRole("Admin"))
+                return Content("No tienes permiso para entrar aqui");
 
-            }
-            ViewData["asd"] = "asddas";
-            return View();
+            if (idProducto == null)
+                return Content("Producto no encontrado");
+
+            var producto = db.Productoes.SingleOrDefault(p => p.ProductoID == idProducto.Value);
+            if (producto == null)
+                return Content("Producto no encontrado");
+
+            producto.Estado = ProductState.OnSale;
+            producto.UsuarioQueReporta = "";
+            db.SaveChanges();
+
+            return RedirectToAction("IndexReportados");
         }
     }
 }

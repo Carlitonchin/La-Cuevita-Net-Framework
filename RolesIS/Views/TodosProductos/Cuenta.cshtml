@@ -3,6 +3,7 @@
     ViewBag.Title = "Cuenta";
 }
 
+<br/>
 <h2>@Model.Nombre</h2>
 <h4>Cantidad: @ViewBag.Cantidad</h4>
 @{decimal imp = ViewBag.Cantidad * Model.Precio; }
@@ -18,6 +19,6 @@
 
     <br />
     <br />
-    <input type="submit" value="Listo" class="btn btn-default" />
+    <input type="submit" value="Listo" class="btn btn-primary" />
 </form>
 

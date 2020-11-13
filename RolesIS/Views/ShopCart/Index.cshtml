@@ -1,0 +1,54 @@
+﻿@model List<RolesIS.Models.Compra> 
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Carrito de compra</h2>
+@{decimal importeTotal = 0;}
+
+<table class="table">
+    <tr>
+        <th>
+            Producto
+        </th>
+        <th>
+            Precio
+        </th>
+        <th>
+            Cantidad
+        </th>
+        <th>
+            Importe
+        </th>
+        <th>
+        </th>
+    </tr>
+
+    @foreach (var compra in Model)
+    {
+        <tr>
+            <td>
+                @compra.Producto.Nombre
+            </td>
+            <td>
+                @compra.Producto.Precio
+            </td>
+            <td>
+                @compra.Cantidad
+            </td>
+            <td>
+                @(compra.Producto.Precio * compra.Cantidad)
+            </td>
+            <td>
+                @Html.ActionLink("Eliminar", "Delete", new { compraId = compra.CompraID }, null)
+            </td>
+        </tr>
+        importeTotal += compra.Producto.Precio * compra.Cantidad;
+    }
+
+</table>
+
+<h3>Total: @importeTotal</h3>
+
+@Html.ActionLink("Comprar", "Buy")

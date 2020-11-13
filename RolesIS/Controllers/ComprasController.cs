@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using RolesIS.Models;
+using RolesIS.Services.Cache;
 
 namespace RolesIS.Controllers
 {
@@ -14,11 +15,10 @@ namespace RolesIS.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Compras
         [Authorize]
         public ActionResult Index()
         {
-            ApplicationUser user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            var user = Cache.GetUser(u => u.UserName == User.Identity.Name);
             if (user == null)
                 return Content("Error");
 
@@ -27,7 +27,6 @@ namespace RolesIS.Controllers
             return View(user.Compras.ToList());
         }
 
-        // GET: Compras/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -42,35 +41,28 @@ namespace RolesIS.Controllers
             return View(compra);
         }
 
-        // GET: Compras/Create
-      
-
-        // POST: Compras/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CompraID,Cantidad,Cuenta,ProductoID,Id")] Compra compra)
         {
             if (ModelState.IsValid)
             {
-                db.Compras.Add(compra);
-                db.SaveChanges();
+                compra.Estado = ShopStatus.InCart;
+                Cache.AddOrRemoveCompra(true, compra);
+
                 return RedirectToAction("Index", "Compras");
             }
 
             return Content("Error");
         }
         
-      
-        // GET: Compras/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Compra compra = db.Compras.Find(id);
+            var compra = Cache.GetCompra(c => c.CompraID == id);
             if (compra == null)
             {
                 return HttpNotFound();
@@ -78,14 +70,13 @@ namespace RolesIS.Controllers
             return View(compra);
         }
 
-        // POST: Compras/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Compra compra = db.Compras.Find(id);
-            db.Compras.Remove(compra);
-            db.SaveChanges();
+            var compra = Cache.GetCompra(c => c.CompraID == id);
+            Cache.AddOrRemoveCompra(false, compra);
+
             return RedirectToAction("Index");
         }
 
