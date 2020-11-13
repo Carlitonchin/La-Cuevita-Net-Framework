@@ -217,6 +217,8 @@
     <Compile Include="Services\AdminManager\AdminManager.cs" />
     <Compile Include="Services\Cache\Cache.cs" />
     <Compile Include="Services\ClientManager\ClientManager.cs" />
+    <Compile Include="Services\PaymentManager\PasarelaDePagos.cs" />
+    <Compile Include="Services\PaymentManager\ProcesadorDePagos.cs" />
     <Compile Include="Services\SellerManager\SellerManager.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
