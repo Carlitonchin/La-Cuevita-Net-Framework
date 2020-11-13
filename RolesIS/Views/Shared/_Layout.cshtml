@@ -30,6 +30,8 @@
                     @if (User.IsInRole("Vendedor"))
                     {
                         <li>@Html.ActionLink("Mis Productos", "Index", "Productos")</li>
+                        <li>@Html.ActionLink("Mis Subastas", "Index", "Subastas")</li>
+                        <li>@Html.ActionLink("Subastas Disponibles", "SubastasDisponibles", "Subastas")</li>
                     }
                     @if (User.IsInRole("Comprador"))
                     {

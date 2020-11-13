@@ -1,0 +1,27 @@
+﻿@model RolesIS.Models.Subasta
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<form method="post" action="@Url.Action("Create2")">
+    
+    <div class="form-group">
+        Nombre de la Subasta:
+        <input class="form-control" name="subastaNombre"/>
+    </div>
+
+    <div class="form-group">
+        Descripcion:
+        <input class="form-control" name="subastaDescripcion" />
+    </div>
+
+    <input type="submit" value="Siguiente"/>
+
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

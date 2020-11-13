@@ -1,0 +1,88 @@
+﻿@model RolesIS.Models.SubastaViewModel
+@{
+    ViewBag.Title = "Create2";
+}
+
+<script type="text/javascript">
+
+    function Quitar(i){
+        
+        document.getElementById("quitar").setAttribute("value", i);
+        document.getElementById("form").submit();
+    }
+
+    function Click(p) {
+       
+        document.getElementById("producto").setAttribute("value", p);
+        document.getElementById("form").submit();
+    }
+
+    function Continuar() {
+
+        var form = document.getElementById("form");
+       form.setAttribute("action", "@Url.Action("Create3")")
+        form.submit();
+    }
+
+</script>
+
+<h2>Seleccione los productos para la subasta @Model.subasta.Nombre</h2>
+<input type="button" class="btn btn-default" value="Continuar" onclick="Continuar()"/>
+<br /> 
+<br />
+<br />
+<table class="table">
+    <tr>
+        <th>
+            <p>Productos Seleccionados:</p>
+            
+            <form method="post" id="form" action="@Url.Action("AgregarQuitar")">
+                <input type="hidden" id="quitar" name="quitar" value="-1" />
+                <input type="hidden" name="producto" id="producto" />
+                <input type="hidden" name="nombre" value="@Model.subasta.Nombre" />
+                <input type="hidden" name="descripcion" value="@Model.subasta.Descripcion" />
+                @if (Model.productos != null)
+            {
+                var Productos = Model.productosSeleccionados;
+                var Cantidades = Model.cantidades;
+
+                    <table class="table-hover">
+                        @for (int i = 0; i < Productos.Count; i++)
+                        {
+
+                        <tr>
+                            <td>@Productos[i].Nombre (@Cantidades[i])</td>
+                            <td><input type="button" class="btn btn-danger" value="Quitar" onclick="Quitar(@Productos[i].ProductoID)" /></td>
+                        </tr>
+
+
+                        
+                        <input type="hidden" name="index" value="@i">
+                        <input type="hidden" name="productosSeleccionados[@i]" value="@Productos[i].ProductoID">
+
+                        <input type="hidden" name="cantidades[@i]" value="@Cantidades[i]">
+                        }
+                    </table>
+
+                }
+            </form>
+
+
+        <th>
+            <div align="center">
+                <p> Cliquea sobre el producto para agregar una unidad a la subasta::</p><br />
+                <table>
+                @foreach (var item in Model.productos)
+                {
+        <tr>
+            
+            <input type="button" class="btn btn-group-justified btn-default" value="@item.Nombre" onclick="Click(@item.ProductoID)" />
+        </tr>
+
+                }
+            </table>
+            </th>
+            </tr>
+            </table>
+
+
