@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace RolesIS.Utils
+namespace RolesIS.Services.PaymentManager
 {
     public class ProcesadorDePagos
     {
@@ -18,6 +18,11 @@ namespace RolesIS.Utils
         }
 
         public bool RealizarPago(Object peticion)
+        {
+            return true;
+        }
+
+        public bool FondosSuficientes(Object peticion)
         {
             Random r = new Random();
             int n = r.Next(5);

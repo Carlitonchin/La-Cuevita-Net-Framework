@@ -33,7 +33,7 @@ namespace RolesIS.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult Comprar(int? idProducto, int? cant)
+        public ActionResult AnadirACarrito (int? idProducto, int? cant)
         {
             if (idProducto == null || cant == null)
                 return Content("Error");
@@ -46,9 +46,11 @@ namespace RolesIS.Controllers
             if (cant > producto.Cantidad)
                 return Content("No se dispone de esa cantidad de " + producto.Nombre);
 
-            ViewBag.Cantidad = cant;
 
-            return View("Cuenta", producto);
+            var user = Cache.GetUser(u => u.UserName == User.Identity.Name);
+            ClientManager.CreateCompra(idProducto.Value, cant.Value, "", producto.Precio * cant.Value, user.Id);
+
+            return RedirectToAction("Index");
         }
 
         [Authorize]

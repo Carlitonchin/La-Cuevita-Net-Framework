@@ -16,7 +16,8 @@ namespace RolesIS.Services.ClientManager
                 Cuenta = cuenta,
                 ProductoID = idProducto,
                 Importe = importe,
-                Id = idComprador
+                Id = idComprador,
+                Estado = ShopStatus.InCart
             };
 
             Cache.Cache.AddOrRemoveCompra(true, compra);

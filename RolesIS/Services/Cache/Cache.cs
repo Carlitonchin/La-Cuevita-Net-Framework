@@ -100,18 +100,30 @@ namespace RolesIS.Services.Cache
 
             UpdateProductos();
         }
+        public static void IncreaseProducto(int productoId, int amount)
+        {
+            var producto = GetProducto(p => p.ProductoID == productoId);
+
+            producto.Cantidad += amount;
+
+            _dbContext.Entry(producto).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+
+            UpdateProductos();
+        }
 
         public static void UpdateProductos()
         {
             Productos = _dbContext.Productoes.ToList();
         }
 
-        public static void FromCartToPaid(List<Compra> compras)
+        public static void FromCartToPaid(List<Compra> compras, string cuenta)
         {
             foreach (var compra in compras)
             {
                 var paidCompra = Compras.Where(c => c.CompraID == compra.CompraID).Single();
                 paidCompra.Estado = ShopStatus.Paid;
+                paidCompra.Cuenta = cuenta;
                 _dbContext.Entry(paidCompra).State = EntityState.Modified;
             }
             _dbContext.SaveChanges();
