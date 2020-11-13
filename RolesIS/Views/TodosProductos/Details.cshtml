@@ -1,16 +1,17 @@
 ﻿@model RolesIS.Models.Producto
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Details";
 }
+
 <br/>
-<h2>Eliminar Producto</h2>
-<h4>¿Está seguro que quiere eliminar este producto?</h4>
+<h2>Detalles</h2>
+
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Anunciante.UserName)
+            @Html.DisplayName("Proveedor")
         </dt>
 
         <dd>
@@ -49,22 +50,16 @@
             @Html.DisplayFor(model => model.Precio)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Cuenta)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Cuenta)
-        </dd>
+
 
     </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-primary" /> |
-            @Html.ActionLink("Regresar", "Index")
-        </div>
-    }
+    
+    @Html.ActionLink("Comprar", "Comprar", new { idProducto = Model.ProductoID}, new { @class = "glyphicon-link"})
+    <br />
+    <br />
 </div>
+<p>
+    
+    @Html.ActionLink("Regresar", "Index")
+</p>
