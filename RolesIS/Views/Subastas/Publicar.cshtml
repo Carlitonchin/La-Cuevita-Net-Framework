@@ -1,0 +1,15 @@
+﻿@model RolesIS.Models.Subasta
+
+
+<h2>Encuesta lista para publicar</h2>
+<h3>Deja un margen para que las personas se enteren de la subasta (segundos)</h3>
+
+<form method="post">
+
+    <input type="number" name="margen" placeholder="Tiempo en segundos" class="form-control"/>
+    <input type="hidden" name="idSubasta" value="@Model.SubastaID"/>
+
+    <input type="submit" class="btn btn-default" value="Publicar"/> 
+
+</form>
+

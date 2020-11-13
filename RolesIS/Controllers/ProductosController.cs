@@ -87,6 +87,15 @@ namespace RolesIS.Controllers
             {
                 db.Entry(producto).State = EntityState.Modified;
                 db.SaveChanges();
+                var user = db.Users.FirstOrDefault(m => m.UserName == User.Identity.Name);
+                if (user == null)
+                    return Content("error");
+                if (user.Productos == null)
+                    user.Productos = new List<Producto>();
+
+                user.Productos.Add(producto);
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.Id = new SelectList(db.Users, "Id", "Email", producto.Id);

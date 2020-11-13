@@ -1,0 +1,36 @@
+﻿@model RolesIS.Models.Subasta
+
+
+<h2>Subasta @Model.Nombre</h2>
+<h3>@Model.Descripcion</h3>
+<h3>Precio Inical: @Model.PrecioInicial</h3>
+<h3>Productos:</h3>
+@{
+    var products = Model.Productos.ToList();
+    var cantidades = Model.Cantidades.ToList();
+
+    for (int i = 0; i < products.Count; i++)
+    {
+        <p>@cantidades[i].valor x @products[i].Nombre</p>
+    }
+}
+
+<br />
+@if (Model.SubastaTerminada)
+{
+    <h3>Estado: Subasta terminada, vendido a @Model.CompradorActual.UserName por @Model.PrecioActual</h3>
+}
+else if (Model.tiempoPublicacion != null)
+{
+    <h3>Estado: En curso</h3>
+    if (Model.CompradorActual == null)
+    {
+        <h3>Aun nadie ha pujado</h3>
+        @Html.ActionLink("Cancelar subasta", "Cancelar", new { idSubasta = Model.SubastaID })
+    }
+}
+else
+{
+    <h3>Estado: Inactiva</h3>
+    @Html.ActionLink("Publicar la subasta", "Publicar", new { idSubasta = Model.SubastaID})
+}
