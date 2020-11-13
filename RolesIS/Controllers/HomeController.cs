@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -41,7 +42,7 @@ namespace RolesIS.Controllers
         [Authorize]
         public ActionResult Comprador()
         {
-            return Content("Perteneces al pueblo");
+            return Content("Eres Comprador");
         }
 
         public ActionResult Contact()

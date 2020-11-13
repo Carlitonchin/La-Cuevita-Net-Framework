@@ -58,7 +58,6 @@ namespace RolesIS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProductoID,Nombre,Descripcion,Cantidad,Precio,Id,Cuenta")] Producto producto)
         {
-
             var users = from u in db.Users where u.UserName == User.Identity.Name select u;
             ApplicationUser user = users.First();
             producto.Id = user.Id;
@@ -86,7 +85,6 @@ namespace RolesIS.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Id = new SelectList(db.Users, "Id", "Email", producto.Id);
             return View(producto);
         }
 
@@ -95,15 +93,17 @@ namespace RolesIS.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductoID,Nombre,Descripcion,Cantidad,Precio,Id,Cuenta")] Producto producto)
+        public ActionResult Edit([Bind(Include = "ProductoID,Nombre,Descripcion,Cantidad,Precio,Cuenta")] Producto producto)
         {
+            var users = from u in db.Users where u.UserName == User.Identity.Name select u;
+            ApplicationUser user = users.First();
+            producto.Id = user.Id;
             if (ModelState.IsValid)
             {
                 db.Entry(producto).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Id = new SelectList(db.Users, "Id", "Email", producto.Id);
             return View(producto);
         }
 

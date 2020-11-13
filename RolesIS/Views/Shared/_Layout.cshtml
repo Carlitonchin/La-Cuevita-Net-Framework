@@ -32,9 +32,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="~/Compras">Mis Compras</a>
                     </li>
-                    <li class="nav-item">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
                         <a class="nav-link" href="~/Account">Usuarios</a>
-                    </li>
+                        </li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

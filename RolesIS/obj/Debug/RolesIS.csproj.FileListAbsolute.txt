@@ -152,3 +152,4 @@ C:\Users\Nadia\source\repos\La-Cuevita-Net-Framework\RolesIS\obj\Debug\RolesIS.c
 C:\Users\Nadia\source\repos\La-Cuevita-Net-Framework\RolesIS\obj\Debug\RolesIS.csproj.CopyComplete
 C:\Users\Nadia\source\repos\La-Cuevita-Net-Framework\RolesIS\obj\Debug\RolesIS.dll
 C:\Users\Nadia\source\repos\La-Cuevita-Net-Framework\RolesIS\obj\Debug\RolesIS.pdb
+C:\Users\Nadia\Source\Repos\La-Cuevita-Net-Framework\RolesIS\obj\Debug\RolesIS.Migrations.ProductCategory.resources
