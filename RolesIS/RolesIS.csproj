@@ -206,6 +206,10 @@
     <Compile Include="Migrations\202011112237110_CompraUpdated.Designer.cs">
       <DependentUpon>202011112237110_CompraUpdated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011140040422_AddStateToProduct.cs" />
+    <Compile Include="Migrations\202011140040422_AddStateToProduct.Designer.cs">
+      <DependentUpon>202011140040422_AddStateToProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Compra.cs" />
@@ -322,6 +326,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011112237110_CompraUpdated.resx">
       <DependentUpon>202011112237110_CompraUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011140040422_AddStateToProduct.resx">
+      <DependentUpon>202011140040422_AddStateToProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

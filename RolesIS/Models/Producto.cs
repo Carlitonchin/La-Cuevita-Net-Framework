@@ -24,5 +24,11 @@ namespace RolesIS.Models
         public string Cuenta { get; set; }
         
         public virtual ICollection<Compra> Compras { get; set; }
+
+        public ProductState Estado { get; set; }
+    }
+    public enum ProductState
+    {
+        OnSale, Suspended
     }
 }
