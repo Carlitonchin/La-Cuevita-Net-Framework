@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "IndexReportados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>IndexReportados</h2>
+
+@model IEnumerable<RolesIS.Models.Producto>
+
+@{
+    ViewBag.Title = "Productos Reportados";
+}
+
+<h2>Productos Reportados</h2>
+
+
+<table class="table">
+
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+
+
+        <th>
+            Usuario que Reporto
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if (item.Cantidad == 0)
+        {
+            continue;
+        }
+
+
+        <tr>
+            <td>
+                @item.Nombre
+            </td>
+            <td>
+                @item.UsuarioQueReporta
+            </td>
+            <td>
+                @Html.ActionLink("Autorizar", "Autorizar", new { idProducto = item.ProductoID})
+            </td>
+        </tr>
+    }
+
+</table>

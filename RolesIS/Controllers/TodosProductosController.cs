@@ -17,7 +17,16 @@ namespace RolesIS.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            return View(Cache.Productos);
+            var productos = db.Productoes.Where(p => p.Estado == ProductState.OnSale);
+            return View(productos);
+        }
+
+        public ActionResult IndexReportados()
+        {
+            if (!User.IsInRole("Admin"))
+                return Content("No tienes permiso para entrar aqui");
+            var productos = db.Productoes.Where(p => p.Estado == ProductState.Suspended);
+            return View(productos);
         }
 
         public ActionResult Comprar(int? ProductoId)
@@ -73,5 +82,40 @@ namespace RolesIS.Controllers
            
             return RedirectToAction("Index", "Compras");
          }
+
+        public ActionResult Reportar(int? idProducto)
+        {
+            if (idProducto == null)
+                return Content("Producto no encontrado");
+
+            var producto = db.Productoes.SingleOrDefault(p => p.ProductoID == idProducto.Value);
+            if (producto == null)
+                return Content("Producto no encontrado");
+
+            producto.Estado = ProductState.Suspended;
+            producto.UsuarioQueReporta = User.Identity.Name;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Autorizar(int? idProducto)
+        {
+            if (!User.IsInRole("Admin"))
+                return Content("No tienes permiso para entrar aqui");
+
+            if (idProducto == null)
+                return Content("Producto no encontrado");
+
+            var producto = db.Productoes.SingleOrDefault(p => p.ProductoID == idProducto.Value);
+            if (producto == null)
+                return Content("Producto no encontrado");
+
+            producto.Estado = ProductState.OnSale;
+            producto.UsuarioQueReporta = "";
+            db.SaveChanges();
+
+            return RedirectToAction("IndexReportados");
+        }
     }
 }

@@ -210,6 +210,10 @@
     <Compile Include="Migrations\202011140040422_AddStateToProduct.Designer.cs">
       <DependentUpon>202011140040422_AddStateToProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011140047232_AddUserNameInReport.cs" />
+    <Compile Include="Migrations\202011140047232_AddUserNameInReport.Designer.cs">
+      <DependentUpon>202011140047232_AddUserNameInReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Compra.cs" />
@@ -293,6 +297,7 @@
     <Content Include="Views\Compras\Index.cshtml" />
     <Content Include="Views\ShopCart\Index.cshtml" />
     <Content Include="Views\ShopCart\ConfirmarCuenta.cshtml" />
+    <Content Include="Views\TodosProductos\IndexReportados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -329,6 +334,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011140040422_AddStateToProduct.resx">
       <DependentUpon>202011140040422_AddStateToProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011140047232_AddUserNameInReport.resx">
+      <DependentUpon>202011140047232_AddUserNameInReport.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

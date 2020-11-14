@@ -231,3 +231,4 @@ C:\Users\ALabourdette\Source\Repos\Carlitonchin\La-Cuevita-Net-Framework\RolesIS
 C:\Users\ALabourdette\Source\Repos\Carlitonchin\La-Cuevita-Net-Framework\RolesIS\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\ALabourdette\Source\Repos\Carlitonchin\La-Cuevita-Net-Framework\RolesIS\obj\Debug\RolesIS.csproj.CopyComplete
 C:\Users\ALabourdette\Source\Repos\Carlitonchin\La-Cuevita-Net-Framework\RolesIS\obj\Debug\RolesIS.Migrations.AddStateToProduct.resources
+C:\Users\ALabourdette\Source\Repos\Carlitonchin\La-Cuevita-Net-Framework\RolesIS\obj\Debug\RolesIS.Migrations.AddUserNameInReport.resources
