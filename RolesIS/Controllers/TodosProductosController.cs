@@ -17,7 +17,7 @@ namespace RolesIS.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            var productos = db.Productoes.Where(p => p.Estado == ProductState.OnSale);
+            var productos = db.Productoes.Where(p => p.Estado == ProductState.OnSale).ToList();
             return View(productos);
         }
 
@@ -25,7 +25,7 @@ namespace RolesIS.Controllers
         {
             if (!User.IsInRole("Admin"))
                 return Content("No tienes permiso para entrar aqui");
-            var productos = db.Productoes.Where(p => p.Estado == ProductState.Suspended);
+            var productos = db.Productoes.Where(p => p.Estado == ProductState.Suspended).ToList();
             return View(productos);
         }
 
