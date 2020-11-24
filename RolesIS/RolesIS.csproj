@@ -262,6 +262,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Resorces\Images\La Cuevita Blanco S.png" />
+    <Content Include="Resorces\Images\La Cuevita Logo.png" />
+    <Content Include="Resorces\Images\La Cuevita Negro S.png" />
+    <Content Include="Resorces\Images\Logo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -333,6 +337,8 @@
     <Content Include="Views\Subastas\SubastasDisponibles.cshtml" />
     <Content Include="Views\Subastas\Pujar.cshtml" />
     <Content Include="Views\Subastas\CuentaBancariaParaSubasta.cshtml" />
+    <Content Include="Views\ShopCart\ConfirmarCuenta.cshtml" />
+    <Content Include="Views\ShopCart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
